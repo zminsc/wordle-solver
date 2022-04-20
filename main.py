@@ -10,6 +10,7 @@ solver = Solver(game)
 
 while not game.is_over():
     game.display()
-    game.make_guess(str(input("Make a guess: ")))
+    solver.update(game)
+    game.make_guess(solver.generate_guess())
 
 game.display()

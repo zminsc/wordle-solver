@@ -1,4 +1,4 @@
-import color_codes
+from WordleGame import color_codes
 from random import randint
 
 class Game:
@@ -10,7 +10,6 @@ class Game:
         self.guesses = [""] * 6
         self.guesses_colors = [[""]*5 for i in range(6)]
         self.alphabet_colors = [""]*26
-        print(self.correct_word)
 
     def make_guess(self, guess):
         guess = guess.upper()
