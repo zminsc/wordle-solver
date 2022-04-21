@@ -26,7 +26,18 @@ class Solver:
 
     def assign_values(self, frequency_table):
         # return values of each possible guess as a list
-        return []
+        # read possible_guessesx
+        # assign value using frequency table?
+        # consider double letter
+        value_list = []
+        
+        for word in self.possible_guesses:
+            value = 0
+            for i in range(5):
+                value += frequency_table[(word[i])]
+                value_list.append(value)
+        
+        return value_list
 
     def update_possible_guesses(self, game):
         # go through the list of possible guesses and update it
