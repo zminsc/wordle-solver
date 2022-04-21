@@ -13,7 +13,6 @@ class Solver:
         if self.game.words_guessed == 0:
             return "ADIEU"
         else:
-            self.update_possible_guesses(self.game)
             guess_values = self.assign_values(self.create_frequency_table())
             return self.possible_guesses[guess_values.index(max(guess_values))]
 
@@ -67,7 +66,10 @@ class Solver:
             for guess in self.possible_guesses:
                 okay = True
                 for i in range(len(yellowed_letters)):
-                    if yellowed_letters[i] in guess and yellowed_letters[i] == guess[yellowed_letters_indexes[i]]:
+                    if yellowed_letters[i] in guess:
+                        if yellowed_letters[i] == guess[yellowed_letters_indexes[i]]:
+                            okay = False
+                    else:
                         okay = False
                 if okay:
                     new_possible_guesses.append(guess)
@@ -85,8 +87,9 @@ class Solver:
             for guess in self.possible_guesses:
                 okay = True
                 for i in range(len(green_letters)):
-                    if guess[green_letters_indexes[i]] != green_letters[i]:
+                    if guess[green_letters_indexes[i]] != green_letters[i] or green_letters[i] not in guess:
                         okay = False
                 if okay:
                     new_possible_guesses.append(guess)
             self.possible_guesses = new_possible_guesses
+        print(self.possible_guesses)
