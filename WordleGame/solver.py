@@ -35,7 +35,7 @@ class Solver:
             value = 0
             for i in range(5):
                 value += frequency_table[(word[i])]
-                value_list.append(value)
+            value_list.append(value)
         
         return value_list
 
