@@ -9,6 +9,6 @@ def clear():
 def read_words(file):
     word_list = open(file, "r").read().split(",")
     word_list.sort()
-    for i in range(0, len(word_list)):
+    for i in range(len(word_list)):
         word_list[i] = word_list[i].upper()
     return word_list
