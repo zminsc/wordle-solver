@@ -28,15 +28,30 @@ class Game:
             return True
 
     def update_guesses_colors(self):
+        guess = self.guesses[self.words_guessed]
+        answer = self.correct_word
+        print (guess)
+        print (answer)
+        # default everything to black
         for i in range(5):
             self.guesses_colors[self.words_guessed][i] = color_codes.black
-        for i in range(len(self.yellow_letters)):
-            for j in range(5):
-                if self.guesses[self.words_guessed][j] == self.yellow_letters[i]:
-                    self.guesses_colors[self.words_guessed][j] = color_codes.yellow
+        
         for i in range(5):
-            if self.guesses[self.words_guessed][i] == self.correct_word[i]:
+            if guess[i] == answer[i]:
                 self.guesses_colors[self.words_guessed][i] = color_codes.green
+            else:
+                for j in range(5):
+                    if guess[j] == answer[i] and self.guesses_colors[self.words_guessed][j] == color_codes.black:
+                        self.guesses_colors[self.words_guessed][j] = color_codes.yellow
+                        break
+
+        # for i in range(len(self.yellow_letters)):
+        #     for j in range(5):
+        #         if self.guesses[self.words_guessed][j] == self.yellow_letters[i]:
+        #             self.guesses_colors[self.words_guessed][j] = color_codes.yellow
+        # for i in range(5):
+        #     if self.guesses[self.words_guessed][i] == self.correct_word[i]:
+        #         self.guesses_colors[self.words_guessed][i] = color_codes.green
 
     def update_alphabet_colors(self):
         for i in range(5):
