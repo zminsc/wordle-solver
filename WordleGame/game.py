@@ -30,8 +30,6 @@ class Game:
     def update_guesses_colors(self):
         guess = self.guesses[self.words_guessed]
         answer = self.correct_word
-        print (guess)
-        print (answer)
         # default everything to black
         for i in range(5):
             self.guesses_colors[self.words_guessed][i] = color_codes.black
