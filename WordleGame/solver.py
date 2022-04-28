@@ -12,18 +12,22 @@ class Solver:
 
     def generate_guess(self):
         if self.game.words_guessed == 0:
-            return "ADIEU"
+            return "PHONY"
+        elif self.game.words_guessed == 1:
+            return "CAMEL"
+        elif self.game.words_guessed == 2:
+            return "DUITS"
         else:
-            guess_values = self.assign_values(self.create_letter_frequency_table())
+            guess_values = self.assign_values(self.create_letter_frequency_table(), self.game.words_guessed)
             return self.possible_guesses[guess_values.index(max(guess_values))]
 
     def create_letter_frequency_table(self):
         frequency_table = {}
-        for i in range(26):
-            frequency_table[chr(ord('A')+i)] = 0
+        for i in range(130):
+            frequency_table[chr(ord('A')+int(i/5))+str(i%5)] = 0
         for i in range(len(self.possible_guesses)):
             for j in range(5):
-                frequency_table[self.possible_guesses[i][j]] += 1
+                frequency_table[self.possible_guesses[i][j]+str(j)] += 1
         return frequency_table
 
     def create_pair_frequency_table(self):
@@ -36,23 +40,23 @@ class Solver:
                 frequency_table[str(self.possible_guesses[i][j]+self.possible_guesses[i][j+1])] += 1
         return frequency_table
 
-    def assign_values(self, frequency_table):
-        # return values of each possible guess as a list
-        # read possible_guesses
-        # assign value using frequency table?
-        # consider double letter
+    def assign_values(self, frequency_table, cur_guess):
         value_list = []
         for word in self.possible_guesses:
             value = 0
             unique_letters = list(set(word))
-            for i in range(len(unique_letters)):
-                value += frequency_table[unique_letters[i]]
+            keys = []
+            for unique_letter in unique_letters:
+                for i in range(len(word)):
+                    if word[i] == unique_letter:
+                        keys.append(str(unique_letter)+str(i))
+            for i in range(len(keys)):
+                value += frequency_table[keys[i]]
             value_list.append(value)
         return value_list
 
     def update_possible_guesses(self, game):
         new_possible_guesses = []
-
         # remove all words with yellow letter in wrong position
         yellowed_letters = []
         yellowed_letters_indexes = []

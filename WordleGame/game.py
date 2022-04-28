@@ -4,12 +4,13 @@ from random import randint
 class Game:
     def __init__(self, valid_words):
         self.valid_words = valid_words
-        self.correct_word = valid_words[randint(0, len(valid_words))]
+        self.correct_word = valid_words[randint(0, len(valid_words)-1)]
         self.yellow_letters = list(set(self.correct_word))
         self.words_guessed = 0
         self.guesses = [""] * 6
         self.guesses_colors = [[""]*5 for i in range(6)]
         self.alphabet_colors = [""]*26
+        self.won = False
 
     def make_guess(self, guess):
         guess = guess.upper()
@@ -18,6 +19,8 @@ class Game:
             self.update_guesses_colors()
             self.update_alphabet_colors()
             self.words_guessed += 1
+            if guess == self.correct_word:
+                self.won = True
 
     def validate_guess(self, guess):
         if len(guess) != 5:
